@@ -2,6 +2,7 @@
   <Folder Name="/SolutionItems/">
     <File Path=".gitignore" />
     <File Path="Directory.Build.props" />
+    <File Path=".config/dotnet-tools.json" />
   </Folder>
   <Folder Name="/src/">
     <Project Path="src/WebApi/WebApi.csproj" />
