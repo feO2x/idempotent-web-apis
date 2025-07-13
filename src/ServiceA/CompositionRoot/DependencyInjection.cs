@@ -12,7 +12,7 @@ public static class DependencyInjection
         var services = builder.Services;
         services.AddHealthChecks();
         services.AddSerilog();
-        services.AddOpenTelemetryMetricsAndTracing(builder.Configuration, "Service A");
+        services.AddOpenTelemetryMetricsAndTracing(builder.Configuration, "ServiceA");
         services.AddHttpClientDefaults();
         return builder;
     }

@@ -5,7 +5,13 @@
 
   <ItemGroup>
     <PackageVersion Include="Aspire.Hosting.AppHost" Version="9.3.1" />
+    <PackageVersion Include="Aspire.Hosting.PostgreSQL" Version="9.3.1" />
+    <PackageVersion Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.3.1" />
+    <PackageVersion Include="EFCore.NamingConventions" Version="9.0.0" />
+    <PackageVersion Include="Light.DatabaseAccess.EntityFrameworkCore" Version="3.0.0" />
     <PackageVersion Include="Light.GuardClauses" Version="13.0.0" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.7" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Relational" Version="9.0.7" />
     <PackageVersion Include="Microsoft.Extensions.ServiceDiscovery" Version="9.3.1" />
     <PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.12.0" />
     <PackageVersion Include="OpenTelemetry.Exporter.Prometheus.AspNetCore" Version="1.12.0-beta.1" />

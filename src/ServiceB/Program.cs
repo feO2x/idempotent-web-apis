@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Serilog;
 using ServiceB.CompositionRoot;
+using ServiceB.DatabaseAccess;
 using Shared.CompositionRoot;
 
 namespace ServiceB;
@@ -20,6 +21,7 @@ public static class Program
                .Build()
                .ConfigureHttpPipeline();
 
+            await app.ApplyDatabaseMigrationsAsync();
             await app.RunAsync();
         }
         catch (Exception exception)
