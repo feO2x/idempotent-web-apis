@@ -9,7 +9,7 @@ public static class CommonDtoValidationModule
     {
         return services
            .AddSingleton<IValidationContextFactory>(_ => ValidationContextFactory.Instance)
-           .AddSingleton<ValidationContext>(_ => ValidationContextFactory.CreateContext())
+           .AddScoped<ValidationContext>(_ => ValidationContextFactory.CreateContext())
            .AddSingleton<PagingValidator>();
     }
 }
