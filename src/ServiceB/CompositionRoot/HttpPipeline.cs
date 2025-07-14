@@ -14,6 +14,7 @@ public static class HttpPipeline
         app.UseSerilogRequestLogging();
         app.UseRouting();
         app.MapDefaultHealthChecks();
+        app.MapPrometheusScrapingEndpoint();
         app.MapOpenApi();
         app.MapDefaultScalarApiReference("Service B");
         app.MapContactsEndpoints();

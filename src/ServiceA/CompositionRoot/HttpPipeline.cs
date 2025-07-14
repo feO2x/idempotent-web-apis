@@ -11,6 +11,7 @@ public static class HttpPipeline
         app.UseSerilogRequestLogging();
         app.UseRouting();
         app.MapDefaultHealthChecks();
+        app.MapPrometheusScrapingEndpoint();
         return app;
     }
 }

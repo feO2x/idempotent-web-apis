@@ -20,22 +20,25 @@ public static class ObservabilityExtensions
         var openTelemetryBuilder = services
            .AddOpenTelemetry()
            .ConfigureResource(resource => resource.AddService(serviceName))
-           .WithMetrics(metrics => metrics
-                           .AddAspNetCoreInstrumentation()
-                           .AddHttpClientInstrumentation()
-                           .AddRuntimeInstrumentation()
-                           .AddPrometheusExporter()
-            )
-           .WithTracing(tracing =>
-            {
-                tracing
+           .WithMetrics(
+                metrics => metrics
                    .AddAspNetCoreInstrumentation()
-                   .AddHttpClientInstrumentation();
-                if (useEntityFrameworkCoreInstrumentation)
+                   .AddHttpClientInstrumentation()
+                   .AddRuntimeInstrumentation()
+                   .AddPrometheusExporter()
+            )
+           .WithTracing(
+                tracing =>
                 {
-                    tracing.AddEntityFrameworkCoreInstrumentation();
+                    tracing
+                       .AddAspNetCoreInstrumentation()
+                       .AddHttpClientInstrumentation();
+                    if (useEntityFrameworkCoreInstrumentation)
+                    {
+                        tracing.AddEntityFrameworkCoreInstrumentation();
+                    }
                 }
-            });
+            );
 
         if (configuration.IsOtelExportEndpointPresent())
         {
