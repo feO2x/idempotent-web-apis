@@ -4,6 +4,7 @@ using ServiceB.Contacts.CreateContact;
 using ServiceB.Contacts.DeleteContact;
 using ServiceB.Contacts.GetContact;
 using ServiceB.Contacts.GetContacts;
+using ServiceB.Contacts.UpdateContact;
 
 namespace ServiceB.Contacts;
 
@@ -14,7 +15,8 @@ public static class ContactsModule
            .AddGetContactsModule()
            .AddGetContactModule()
            .AddCreateContactModule()
-           .AddDeleteContactModule();
+           .AddDeleteContactModule()
+           .AddUpdateContactModule();
 
     public static void MapContactsEndpoints(this WebApplication app)
     {
@@ -22,5 +24,6 @@ public static class ContactsModule
         app.MapGetContactEndpoint();
         app.MapCreateContactEndpoint();
         app.MapDeleteContactEndpoint();
+        app.MapUpdateContactEndpoint();
     }
 }

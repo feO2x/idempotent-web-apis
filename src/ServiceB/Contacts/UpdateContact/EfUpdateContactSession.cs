@@ -5,11 +5,11 @@ using ServiceB.Contacts.Shared;
 using ServiceB.DatabaseAccess;
 using Shared.Model;
 
-namespace ServiceB.Contacts.GetContact;
+namespace ServiceB.Contacts.UpdateContact;
 
-public sealed class EfGetContactClient : EfClient<ServiceBDbContext>, IGetContactClient
+public sealed class EfUpdateContactSession : EfSession<ServiceBDbContext>, IUpdateContactSession
 {
-    public EfGetContactClient(ServiceBDbContext dbContext) : base(dbContext) { }
+    public EfUpdateContactSession(ServiceBDbContext dbContext) : base(dbContext) { }
 
     public Task<Contact?> GetContactAsync(int id, CancellationToken cancellationToken = default) =>
         DbContext.GetContactAsync(id, cancellationToken);

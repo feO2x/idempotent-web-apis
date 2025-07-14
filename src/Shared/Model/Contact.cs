@@ -1,6 +1,6 @@
 namespace Shared.Model;
 
-public sealed class Contact
+public sealed class Contact : IContactProperties
 {
     public int Id { get; set; }
     public string Name { get; set; } = string.Empty;

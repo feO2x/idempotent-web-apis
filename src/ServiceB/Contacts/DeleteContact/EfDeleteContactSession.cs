@@ -1,7 +1,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Light.DatabaseAccess.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
+using ServiceB.Contacts.Shared;
 using ServiceB.DatabaseAccess;
 using Shared.Model;
 
@@ -12,7 +12,7 @@ public sealed class EfDeleteContactSession : EfSession<ServiceBDbContext>, IDele
     public EfDeleteContactSession(ServiceBDbContext dbContext) : base(dbContext) { }
 
     public Task<Contact?> GetContactAsync(int id, CancellationToken cancellationToken = default) =>
-        DbContext.Contacts.FirstOrDefaultAsync(x => x.Id == id, cancellationToken);
+        DbContext.GetContactAsync(id, cancellationToken);
 
     public void RemoveContact(Contact contact) => DbContext.Contacts.Remove(contact);
 }
