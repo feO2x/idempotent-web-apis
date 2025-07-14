@@ -10,12 +10,12 @@ namespace ServiceB.CompositionRoot;
 
 public static class DependencyInjection
 {
-    public static WebApplicationBuilder ConfigureServices(this WebApplicationBuilder builder)
+    public static WebApplicationBuilder ConfigureServices(this WebApplicationBuilder builder, ILogger logger)
     {
         builder.AddDatabaseAccess();
         var services = builder.Services;
         services.AddHealthChecks();
-        services.AddSerilog();
+        services.AddSerilog(logger);
         services.AddOpenApi();
         services.AddOpenTelemetryMetricsAndTracing(builder.Configuration, "ServiceB", true);
         services.AddCommonDtoValidation();

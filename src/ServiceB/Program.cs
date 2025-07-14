@@ -17,7 +17,7 @@ public static class Program
         {
             await using var app = WebApplication
                .CreateBuilder(args)
-               .ConfigureServices()
+               .ConfigureServices(Log.Logger)
                .Build()
                .ConfigureHttpPipeline();
 
