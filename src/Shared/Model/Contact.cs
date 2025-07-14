@@ -1,4 +1,4 @@
-namespace ServiceB.DatabaseAccess.Model;
+namespace Shared.Model;
 
 public sealed class Contact
 {

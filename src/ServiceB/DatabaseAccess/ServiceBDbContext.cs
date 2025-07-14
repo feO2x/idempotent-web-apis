@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using ServiceB.DatabaseAccess.Model;
+using Shared.Model;
 
 namespace ServiceB.DatabaseAccess;
 

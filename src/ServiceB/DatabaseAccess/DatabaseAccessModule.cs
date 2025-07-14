@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Shared.Model;
 
 namespace ServiceB.DatabaseAccess;
 
@@ -19,5 +20,11 @@ public static class DatabaseAccessModule
         await using var scope = app.Services.CreateAsyncScope();
         var dbContext = scope.ServiceProvider.GetRequiredService<ServiceBDbContext>();
         await dbContext.Database.MigrateAsync();
+        if (!await dbContext.Contacts.AnyAsync())
+        {
+            var contacts = ContactGenerator.Generate(100);
+            await dbContext.Contacts.AddRangeAsync(contacts);
+            await dbContext.SaveChangesAsync();
+        }
     }
 }
