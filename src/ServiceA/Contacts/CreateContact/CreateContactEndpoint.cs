@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using Polly;
 using ServiceA.HttpAccess;
 using Shared.CommonDtoValidation;
 using Shared.Contacts;
@@ -24,6 +25,7 @@ public static class CreateContactEndpoint
     public static async Task<IResult> CreateContact(
         CreateContactDtoWithErrorsValidator validator,
         IChaosClientFactory<ICreateContactClient> clientFactory,
+        ResiliencePipeline resiliencePipeline,
         CreateContactDto dto,
         [Description(
             "Number of errors that should occur before the HTTP call to Service B - must be greater than or equal to 0"
@@ -50,7 +52,13 @@ public static class CreateContactEndpoint
             numberOfErrorsBeforeServiceCall,
             numberOfErrorsAfterServiceCall
         );
-        var contact = await client.CreateContactAsync(dto, cancellationToken);
+
+        var contact = await resiliencePipeline.ExecuteAsync(
+            async (state, ct) => await state.Client.CreateContactAsync(state.Dto, ct),
+            (Client: client, Dto: dto),
+            cancellationToken
+        );
+        
         return TypedResults.Created($"/api/contacts/{contact.Id}", contact);
     }
 }
