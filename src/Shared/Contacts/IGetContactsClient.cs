@@ -4,7 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Shared.Model;
 
-namespace ServiceB.Contacts.GetContacts;
+namespace Shared.Contacts;
 
 public interface IGetContactsClient : IAsyncDisposable
 {

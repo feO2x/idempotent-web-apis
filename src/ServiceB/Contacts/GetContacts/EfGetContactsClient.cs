@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Light.DatabaseAccess.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using ServiceB.DatabaseAccess;
+using Shared.Contacts;
 using Shared.Model;
 
 namespace ServiceB.Contacts.GetContacts;

@@ -1,6 +1,9 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
+using ServiceA.Contacts;
+using ServiceA.HttpAccess;
+using Shared.CommonDtoValidation;
 using Shared.CompositionRoot;
 
 namespace ServiceA.CompositionRoot;
@@ -13,8 +16,10 @@ public static class DependencyInjection
         services.AddHealthChecks();
         services.AddSerilog(logger);
         services.AddOpenApi();
-        services.AddOpenTelemetryMetricsAndTracing(builder.Configuration, "ServiceA");
-        services.AddHttpClientDefaults();
+        services.AddOpenTelemetryMetricsAndTracing(builder.Configuration, "service-a");
+        services.AddCommonDtoValidation();
+        services.AddHttpAccess();
+        services.AddContactsModule();
         return builder;
     }
 }

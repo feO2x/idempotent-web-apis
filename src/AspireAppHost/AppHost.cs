@@ -60,12 +60,12 @@ public static class AppHost
         }
 
         var serviceB = builder
-           .AddProject<ServiceB>("ServiceB")
+           .AddProject<ServiceB>("service-b")
            .WithReference(serviceBDatabase)
            .WaitFor(serviceBDatabase);
 
         builder
-           .AddProject<ServiceA>("ServiceA")
+           .AddProject<ServiceA>("service-a")
            .WithReference(serviceB)
            .WaitFor(serviceB);
 

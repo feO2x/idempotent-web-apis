@@ -17,7 +17,7 @@ public static class DependencyInjection
         services.AddHealthChecks();
         services.AddSerilog(logger);
         services.AddOpenApi();
-        services.AddOpenTelemetryMetricsAndTracing(builder.Configuration, "ServiceB", true);
+        services.AddOpenTelemetryMetricsAndTracing(builder.Configuration, "service-b", true);
         services.AddCommonDtoValidation();
         services.AddContactsModule();
         return builder;
