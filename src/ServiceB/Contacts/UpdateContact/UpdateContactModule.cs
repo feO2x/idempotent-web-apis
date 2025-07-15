@@ -1,4 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
+using Shared.Contacts;
 
 namespace ServiceB.Contacts.UpdateContact;
 

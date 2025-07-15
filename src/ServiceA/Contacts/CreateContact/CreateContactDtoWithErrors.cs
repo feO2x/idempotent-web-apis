@@ -1,5 +1,5 @@
 using ServiceA.HttpAccess;
-using Shared.Model;
+using Shared.Contacts;
 
 namespace ServiceA.Contacts.CreateContact;
 

@@ -1,7 +1,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Light.SharedCore.DatabaseAccessAbstractions;
-using Shared.Model;
+using Shared.Contacts;
 
 namespace ServiceB.Contacts.DeleteContact;
 

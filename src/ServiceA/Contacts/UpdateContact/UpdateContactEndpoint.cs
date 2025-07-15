@@ -3,30 +3,29 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
-using ServiceA.Contacts.Shared;
 using ServiceA.HttpAccess;
 using Shared.CommonDtoValidation;
 using Shared.Contacts;
 
-namespace ServiceA.Contacts.GetContact;
+namespace ServiceA.Contacts.UpdateContact;
 
-public static class GetContactEndpoint
+public static class UpdateContactEndpoint
 {
-    public static void MapGetContactEndpoint(this WebApplication app) =>
-        app.MapGet("/api/contacts/{id}", GetContact)
-           .WithName("GetContact")
+    public static void MapUpdateContactEndpoint(this WebApplication app) =>
+        app.MapPut("/api/contacts/", UpdateContact)
+           .WithName("UpdateContact")
            .WithTags("Contacts")
-           .WithSummary("GetContact")
-           .WithDescription("Returns details for a single contact")
-           .Produces<Contact>()
+           .WithSummary("UpdateContact")
+           .WithDescription("Updates a contact")
+           .Produces(StatusCodes.Status204NoContent)
            .ProducedBadRequestProblemDetails()
            .Produces(StatusCodes.Status404NotFound)
            .Produces(StatusCodes.Status500InternalServerError);
 
-    public static async Task<IResult> GetContact(
-        IChaosClientFactory<IGetContactClient> clientFactory,
-        ContactIdWithErrorsValidator validator,
-        [Description("ID of the contact to return - must be greater than 0.")] int id,
+    public static async Task<IResult> UpdateContact(
+        UpdateContactWithErrorsValidator validator,
+        IChaosClientFactory<IUpdateContactClient> clientFactory,
+        Contact dto,
         [Description(
             "Number of errors that should occur before the HTTP call to Service B - must be greater than or equal to 0"
         )]
@@ -38,8 +37,8 @@ public static class GetContactEndpoint
         CancellationToken cancellationToken = default
     )
     {
-        var dto = new ErrorsDto<int>(id, numberOfErrorsBeforeServiceCall, numberOfErrorsAfterServiceCall);
-        if (validator.CheckForErrors(dto, out IResult? result))
+        var errorsDto = new ErrorsDto<Contact>(dto, numberOfErrorsBeforeServiceCall, numberOfErrorsAfterServiceCall);
+        if (validator.CheckForErrors(errorsDto, out IResult? result))
         {
             return result;
         }
@@ -48,7 +47,6 @@ public static class GetContactEndpoint
             numberOfErrorsBeforeServiceCall,
             numberOfErrorsAfterServiceCall
         );
-        var contact = await client.GetContactAsync(id, cancellationToken);
-        return contact is null ? TypedResults.NotFound() : TypedResults.Ok(contact);
+        return await client.UpdateContactAsync(dto, cancellationToken);
     }
 }

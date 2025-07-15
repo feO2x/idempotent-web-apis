@@ -1,7 +1,7 @@
 using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Shared.Model;
+using Shared.Contacts;
 
 namespace ServiceA.Contacts.CreateContact;
 

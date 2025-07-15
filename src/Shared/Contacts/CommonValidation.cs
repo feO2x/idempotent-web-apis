@@ -1,7 +1,6 @@
 using Light.Validation;
 using Light.Validation.Checks;
 using Light.Validation.Tools;
-using Shared.Model;
 
 namespace Shared.Contacts;
 

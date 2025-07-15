@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using ServiceA.HttpAccess;
 using Shared.CommonDtoValidation;
-using Shared.Model;
+using Shared.Contacts;
 
 namespace ServiceA.Contacts.CreateContact;
 

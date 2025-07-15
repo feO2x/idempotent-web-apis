@@ -1,5 +1,5 @@
 using Light.SharedCore.DatabaseAccessAbstractions;
-using Shared.Model;
+using Shared.Contacts;
 
 namespace ServiceB.Contacts.CreateContact;
 

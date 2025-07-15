@@ -1,9 +1,7 @@
 using Light.Validation;
 using Light.Validation.Checks;
-using Shared.Contacts;
-using Shared.Model;
 
-namespace ServiceB.Contacts.UpdateContact;
+namespace Shared.Contacts;
 
 public sealed class ContactValidator : Validator<Contact>
 {

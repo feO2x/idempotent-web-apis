@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using Bogus;
 
-namespace Shared.Model;
+namespace Shared.Contacts;
 
 public static class ContactGenerator
 {

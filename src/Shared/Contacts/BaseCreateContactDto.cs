@@ -1,4 +1,4 @@
-namespace Shared.Model;
+namespace Shared.Contacts;
 
 public abstract record BaseCreateContactDto : IContactProperties
 {

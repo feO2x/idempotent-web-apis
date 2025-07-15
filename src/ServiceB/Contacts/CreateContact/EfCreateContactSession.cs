@@ -1,6 +1,6 @@
 using Light.DatabaseAccess.EntityFrameworkCore;
 using ServiceB.DatabaseAccess;
-using Shared.Model;
+using Shared.Contacts;
 
 namespace ServiceB.Contacts.CreateContact;
 

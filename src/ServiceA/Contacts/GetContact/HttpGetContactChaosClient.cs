@@ -4,7 +4,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using ServiceA.HttpAccess;
 using Shared.Contacts;
-using Shared.Model;
 
 namespace ServiceA.Contacts.GetContact;
 

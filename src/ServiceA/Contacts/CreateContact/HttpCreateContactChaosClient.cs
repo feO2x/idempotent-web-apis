@@ -5,7 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Light.GuardClauses;
 using ServiceA.HttpAccess;
-using Shared.Model;
+using Shared.Contacts;
 
 namespace ServiceA.Contacts.CreateContact;
 

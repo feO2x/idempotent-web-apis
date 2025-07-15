@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Http;
 using ServiceA.HttpAccess;
 using Shared.CommonDtoValidation;
 using Shared.Contacts;
-using Shared.Model;
 
 namespace ServiceA.Contacts.GetContacts;
 

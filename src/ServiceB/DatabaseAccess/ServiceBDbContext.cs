@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using Shared.Model;
+using Shared.Contacts;
 
 namespace ServiceB.DatabaseAccess;
 

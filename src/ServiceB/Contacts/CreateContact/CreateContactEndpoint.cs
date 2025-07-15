@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
 using Serilog;
 using Shared.CommonDtoValidation;
-using Shared.Model;
+using Shared.Contacts;
 
 namespace ServiceB.Contacts.CreateContact;
 

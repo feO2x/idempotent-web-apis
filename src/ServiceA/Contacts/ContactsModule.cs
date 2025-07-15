@@ -5,6 +5,7 @@ using ServiceA.Contacts.DeleteContact;
 using ServiceA.Contacts.GetContact;
 using ServiceA.Contacts.GetContacts;
 using ServiceA.Contacts.Shared;
+using ServiceA.Contacts.UpdateContact;
 
 namespace ServiceA.Contacts;
 
@@ -16,6 +17,7 @@ public static class ContactsModule
            .AddGetContactsModule()
            .AddGetContactModule()
            .AddCreateContactModule()
+           .AddUpdateContactModule()
            .AddDeleteContactModule();
 
     public static void MapContactEndpoints(this WebApplication app)
@@ -23,6 +25,7 @@ public static class ContactsModule
         app.MapGetContactsEndpoint();
         app.MapGetContactEndpoint();
         app.MapCreateContactEndpoint();
+        app.MapUpdateContactEndpoint();
         app.MapDeleteContactEndpoint();
     }
 }
