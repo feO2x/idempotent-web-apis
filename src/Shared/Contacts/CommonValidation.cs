@@ -3,7 +3,7 @@ using Light.Validation.Checks;
 using Light.Validation.Tools;
 using Shared.Model;
 
-namespace ServiceB.Contacts.Shared;
+namespace Shared.Contacts;
 
 public static class CommonValidation
 {

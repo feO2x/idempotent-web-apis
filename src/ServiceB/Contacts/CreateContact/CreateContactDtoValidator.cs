@@ -1,5 +1,5 @@
 using Light.Validation;
-using ServiceB.Contacts.Shared;
+using Shared.Contacts;
 using Shared.Model;
 
 namespace ServiceB.Contacts.CreateContact;

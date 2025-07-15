@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
+using ServiceA.Contacts.CreateContact;
 using ServiceA.Contacts.GetContact;
 using ServiceA.Contacts.GetContacts;
 using ServiceA.Contacts.Shared;
@@ -12,11 +13,13 @@ public static class ContactsModule
         services
            .AddSharedContactsModule()
            .AddGetContactsModule()
-           .AddGetContactModule();
+           .AddGetContactModule()
+           .AddCreateContactModule();
 
     public static void MapContactEndpoints(this WebApplication app)
     {
         app.MapGetContactsEndpoint();
         app.MapGetContactEndpoint();
+        app.MapCreateContactEndpoint();
     }
 }
