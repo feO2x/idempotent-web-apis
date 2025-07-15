@@ -26,7 +26,7 @@ public static class GetContactEndpoint
     public static async Task<IResult> GetContact(
         IChaosClientFactory<IGetContactClient> clientFactory,
         ContactIdWithErrorsValidator validator,
-        [Description("ID of the contact to return - must be greater than 0.")] int id,
+        [Description("ID of the contact to return - must be greater than 0")] int id,
         [Description(
             "Number of errors that should occur before the HTTP call to Service B - must be greater than or equal to 0"
         )]

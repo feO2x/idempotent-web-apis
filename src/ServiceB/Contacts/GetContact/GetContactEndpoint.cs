@@ -25,7 +25,7 @@ public static class GetContactEndpoint
     public static async Task<IResult> GetContact(
         ValidationContext validationContext,
         IGetContactClient dbClient,
-        [Description("ID of the contact to return - must be greater than 0.")] int id,
+        [Description("ID of the contact to return - must be greater than 0")] int id,
         CancellationToken cancellationToken = default
     )
     {

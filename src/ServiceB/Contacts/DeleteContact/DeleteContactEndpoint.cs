@@ -27,7 +27,7 @@ public static class DeleteContactEndpoint
     public static async Task<IResult> DeleteContact(
         ValidationContext validationContext,
         IDeleteContactSession dbSession,
-        [Description("ID of the contact to delete - must be greater than 0.")] int id,
+        [Description("ID of the contact to delete - must be greater than 0")] int id,
         ILogger logger,
         CancellationToken cancellationToken = default
     )

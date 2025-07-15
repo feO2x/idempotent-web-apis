@@ -5,6 +5,7 @@ namespace Shared.Contacts;
 
 public sealed class Contact : IContactProperties
 {
+    [Description("ID of the contact - must be greater than 0")]
     public int Id { get; set; }
 
     [Description("Name of the contact - must be between 1 and 100 characters")]
