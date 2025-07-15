@@ -3,9 +3,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using Shared.Contacts;
 
-namespace ServiceB.Contacts.CreateContact;
+namespace ServiceB.Contacts.UpsertContact;
 
-public interface ICreateContactClient : IAsyncDisposable
+public interface IUpsertContactClient : IAsyncDisposable
 {
     Task<UpsertResult> UpsertContactAsync(Contact contact, CancellationToken cancellationToken = default);
 }

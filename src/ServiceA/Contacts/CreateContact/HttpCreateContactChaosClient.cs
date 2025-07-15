@@ -21,7 +21,7 @@ public sealed class HttpCreateContactChaosClient : HttpChaosClient, ICreateConta
     {
         ThrowBeforeHttpCallIfNecessary();
 
-        using var response = await Client.PostAsJsonAsync(
+        using var response = await Client.PutAsJsonAsync(
             "/api/contacts",
             dto,
             JsonSerializerOptions,

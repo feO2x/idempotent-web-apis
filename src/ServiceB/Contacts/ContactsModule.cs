@@ -1,10 +1,9 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using ServiceB.Contacts.CreateContact;
 using ServiceB.Contacts.DeleteContact;
 using ServiceB.Contacts.GetContact;
 using ServiceB.Contacts.GetContacts;
-using ServiceB.Contacts.UpdateContact;
+using ServiceB.Contacts.UpsertContact;
 
 namespace ServiceB.Contacts;
 
@@ -14,16 +13,14 @@ public static class ContactsModule
         services
            .AddGetContactsModule()
            .AddGetContactModule()
-           .AddCreateContactModule()
-           .AddDeleteContactModule()
-           .AddUpdateContactModule();
+           .AddUpsertContactModule()
+           .AddDeleteContactModule();
 
     public static void MapContactsEndpoints(this WebApplication app)
     {
         app.MapGetContactsEndpoint();
         app.MapGetContactEndpoint();
-        app.MapCreateContactEndpoint();
+        app.MapUpsertContactEndpoint();
         app.MapDeleteContactEndpoint();
-        app.MapUpdateContactEndpoint();
     }
 }

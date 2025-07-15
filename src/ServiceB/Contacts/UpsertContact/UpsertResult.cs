@@ -1,4 +1,4 @@
-namespace ServiceB.Contacts.CreateContact;
+namespace ServiceB.Contacts.UpsertContact;
 
 public enum UpsertResult
 {

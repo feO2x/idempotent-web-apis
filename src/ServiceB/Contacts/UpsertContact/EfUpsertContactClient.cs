@@ -7,11 +7,11 @@ using Npgsql;
 using ServiceB.DatabaseAccess;
 using Shared.Contacts;
 
-namespace ServiceB.Contacts.CreateContact;
+namespace ServiceB.Contacts.UpsertContact;
 
-public sealed class EfCreateContactClient : EfClient<ServiceBDbContext>, ICreateContactClient
+public sealed class EfUpsertContactClient : EfClient<ServiceBDbContext>, IUpsertContactClient
 {
-    public EfCreateContactClient(ServiceBDbContext dbContext) : base(dbContext) { }
+    public EfUpsertContactClient(ServiceBDbContext dbContext) : base(dbContext) { }
 
     public async Task<UpsertResult> UpsertContactAsync(Contact contact, CancellationToken cancellationToken = default)
     {

@@ -6,26 +6,26 @@ using Serilog;
 using Shared.CommonDtoValidation;
 using Shared.Contacts;
 
-namespace ServiceB.Contacts.CreateContact;
+namespace ServiceB.Contacts.UpsertContact;
 
-public static class CreateContactEndpoint
+public static class UpsertContactEndpoint
 {
-    public static void MapCreateContactEndpoint(this WebApplication app)
+    public static void MapUpsertContactEndpoint(this WebApplication app)
     {
-        app.MapPost("/api/contacts", CreateContact)
-           .WithName("CreateContact")
+        app.MapPut("/api/contacts", UpsertContact)
+           .WithName("UpsertContact")
            .WithTags("Contacts")
-           .WithSummary("CreateContact")
-           .WithDescription("Creates a new contact")
+           .WithSummary("UpsertContact")
+           .WithDescription("Creates or updates a contact")
            .Produces<Contact>()
            .ProducedBadRequestProblemDetails()
            .Produces(StatusCodes.Status500InternalServerError);
     }
 
-    public static async Task<IResult> CreateContact(
+    public static async Task<IResult> UpsertContact(
         Contact dto,
         ContactValidator validator,
-        ICreateContactClient dbClient,
+        IUpsertContactClient dbClient,
         ILogger logger,
         CancellationToken cancellationToken = default
     )
