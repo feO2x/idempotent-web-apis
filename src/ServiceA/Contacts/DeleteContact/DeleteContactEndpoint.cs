@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using Polly;
 using ServiceA.Contacts.Shared;
 using ServiceA.HttpAccess;
 using Shared.CommonDtoValidation;
@@ -26,6 +27,7 @@ public static class DeleteContactEndpoint
     public static async Task<IResult> DeleteContact(
         ContactIdWithErrorsValidator validator,
         IChaosClientFactory<IDeleteContactClient> clientFactory,
+        ResiliencePipeline resiliencePipeline,
         [Description("ID of the contact to delete - must not be empty")] Guid id,
         [Description(
             "Number of errors that should occur before the HTTP call to Service B - must be greater than or equal to 0"
@@ -48,6 +50,11 @@ public static class DeleteContactEndpoint
             numberOfErrorsBeforeServiceCall,
             numberOfErrorsAfterServiceCall
         );
-        return await client.DeleteContactAsync(id, cancellationToken);
+
+        return await resiliencePipeline.ExecuteAsync(
+            async (state, ct) => await state.Client.DeleteContactAsync(state.Id, ct),
+            (Client: client, Id: id),
+            cancellationToken
+        );
     }
 }

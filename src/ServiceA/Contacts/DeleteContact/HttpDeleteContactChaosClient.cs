@@ -1,5 +1,4 @@
 using System;
-using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
@@ -24,16 +23,8 @@ public sealed class HttpDeleteContactChaosClient : HttpChaosClient, IDeleteConta
             $"/api/contacts/{id}",
             cancellationToken
         );
-        IResult result;
-        if (response.StatusCode == HttpStatusCode.NotFound)
-        {
-            result = TypedResults.NotFound();
-        }
-        else
-        {
-            response.EnsureSuccessStatusCode();
-            result = TypedResults.NoContent();
-        }
+        response.EnsureSuccessStatusCode();
+        var result = TypedResults.NoContent();
 
         ThrowAfterHttpCallIfNecessary();
 
