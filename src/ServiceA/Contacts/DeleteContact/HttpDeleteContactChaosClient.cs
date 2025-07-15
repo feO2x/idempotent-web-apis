@@ -1,6 +1,8 @@
+using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using ServiceA.HttpAccess;
 
 namespace ServiceA.Contacts.DeleteContact;
@@ -13,7 +15,7 @@ public sealed class HttpDeleteContactChaosClient : HttpChaosClient, IDeleteConta
         int numberOfErrorsAfterServiceCall
     ) : base(client, numberOfErrorsBeforeServiceCall, numberOfErrorsAfterServiceCall) { }
 
-    public async Task DeleteContactAsync(int id, CancellationToken cancellationToken = default)
+    public async Task<IResult> DeleteContactAsync(int id, CancellationToken cancellationToken = default)
     {
         ThrowBeforeHttpCallIfNecessary();
 
@@ -21,9 +23,20 @@ public sealed class HttpDeleteContactChaosClient : HttpChaosClient, IDeleteConta
             $"/api/contacts/{id}",
             cancellationToken
         );
-        response.EnsureSuccessStatusCode();
+        IResult result;
+        if (response.StatusCode == HttpStatusCode.NotFound)
+        {
+            result = TypedResults.NotFound();
+        }
+        else
+        {
+            response.EnsureSuccessStatusCode();
+            result = TypedResults.NoContent();
+        }
 
         ThrowAfterHttpCallIfNecessary();
+
+        return result;
     }
 
     public static IDeleteContactClient Create(

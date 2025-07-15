@@ -25,7 +25,7 @@ public static class DeleteContactEndpoint
     public static async Task<IResult> DeleteContact(
         ContactIdWithErrorsValidator validator,
         IChaosClientFactory<IDeleteContactClient> clientFactory,
-        [Description("ID of the contact to delete - must be greater than 0.")] int id,
+        [Description("ID of the contact to delete - must be greater than 0")] int id,
         [Description(
             "Number of errors that should occur before the HTTP call to Service B - must be greater than or equal to 0"
         )]
@@ -47,7 +47,6 @@ public static class DeleteContactEndpoint
             numberOfErrorsBeforeServiceCall,
             numberOfErrorsAfterServiceCall
         );
-        await client.DeleteContactAsync(id, cancellationToken);
-        return TypedResults.NoContent();
+        return await client.DeleteContactAsync(id, cancellationToken);
     }
 }
