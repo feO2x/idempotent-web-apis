@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using Polly;
 using ServiceA.HttpAccess;
 using Shared.CommonDtoValidation;
 using Shared.Contacts;
@@ -25,7 +26,8 @@ public static class UpdateContactEndpoint
     public static async Task<IResult> UpdateContact(
         UpdateContactWithErrorsValidator validator,
         IChaosClientFactory<IUpdateContactClient> clientFactory,
-        Contact dto,
+        ResiliencePipeline resiliencePipeline,
+        global::Shared.Contacts.Contact dto,
         [Description(
             "Number of errors that should occur before the HTTP call to Service B - must be greater than or equal to 0"
         )]
@@ -47,6 +49,11 @@ public static class UpdateContactEndpoint
             numberOfErrorsBeforeServiceCall,
             numberOfErrorsAfterServiceCall
         );
-        return await client.UpdateContactAsync(dto, cancellationToken);
+
+        return await resiliencePipeline.ExecuteAsync(
+            async (state, ct) => await state.Client.UpdateContactAsync(state.Contact, ct),
+            (Client: client, Contact: dto),
+            cancellationToken
+        );
     }
 }

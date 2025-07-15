@@ -1,4 +1,3 @@
-using System.Net;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading;
@@ -22,16 +21,9 @@ public sealed class HttpUpdateContactChaosClient : HttpChaosClient, IUpdateConta
         ThrowBeforeHttpCallIfNecessary();
 
         using var response = await Client.PutAsJsonAsync("/api/contacts", contact, cancellationToken);
-        IResult result;
-        if (response.StatusCode == HttpStatusCode.NotFound)
-        {
-            result = TypedResults.NotFound();
-        }
-        else
-        {
-            response.EnsureSuccessStatusCode();
-            result = TypedResults.NoContent();
-        }
+
+        response.EnsureSuccessStatusCode();
+        var result = TypedResults.NoContent();
 
         ThrowAfterHttpCallIfNecessary();
 
