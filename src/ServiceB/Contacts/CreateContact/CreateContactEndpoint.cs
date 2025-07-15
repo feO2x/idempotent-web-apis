@@ -1,4 +1,3 @@
-using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
@@ -18,15 +17,15 @@ public static class CreateContactEndpoint
            .WithTags("Contacts")
            .WithSummary("CreateContact")
            .WithDescription("Creates a new contact")
-           .Produces<Contact>(StatusCodes.Status201Created)
+           .Produces<Contact>()
            .ProducedBadRequestProblemDetails()
            .Produces(StatusCodes.Status500InternalServerError);
     }
 
     public static async Task<IResult> CreateContact(
-        CreateContactDto dto,
-        CreateContactDtoValidator validator,
-        ICreateContactSession session,
+        Contact dto,
+        ContactValidator validator,
+        ICreateContactClient dbClient,
         ILogger logger,
         CancellationToken cancellationToken = default
     )
@@ -36,16 +35,16 @@ public static class CreateContactEndpoint
             return result;
         }
 
-        var contact = new Contact
+        var upsertResult = await dbClient.UpsertContactAsync(dto, cancellationToken);
+        if (upsertResult == UpsertResult.Inserted)
         {
-            Id = Guid.CreateVersion7(),
-            Name = dto.Name,
-            Email = dto.Email,
-            PhoneNumber = dto.PhoneNumber
-        };
-        session.AddContact(contact);
-        await session.SaveChangesAsync(cancellationToken);
-        logger.Information("Created contact {@Contact}", contact);
-        return TypedResults.Created($"/api/contacts/{contact.Id}", contact);
+            logger.Information("Created contact {@Contact}", dto);
+        }
+        else
+        {
+            logger.Information("Updated contact {@Contact}", dto);
+        }
+
+        return TypedResults.Ok(dto);
     }
 }

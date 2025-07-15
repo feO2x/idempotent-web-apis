@@ -5,7 +5,5 @@ namespace ServiceB.Contacts.CreateContact;
 public static class CreateContactModule
 {
     public static IServiceCollection AddCreateContactModule(this IServiceCollection services) =>
-        services
-           .AddScoped<ICreateContactSession, EfCreateContactSession>()
-           .AddSingleton<CreateContactDtoValidator>();
+        services.AddScoped<ICreateContactClient, EfCreateContactClient>();
 }

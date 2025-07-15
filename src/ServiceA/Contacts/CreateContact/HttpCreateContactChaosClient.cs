@@ -17,7 +17,7 @@ public sealed class HttpCreateContactChaosClient : HttpChaosClient, ICreateConta
         int numberOfErrorsAfterServiceCall
     ) : base(client, numberOfErrorsBeforeServiceCall, numberOfErrorsAfterServiceCall) { }
 
-    public async Task<Contact> CreateContactAsync(CreateContactDto dto, CancellationToken cancellationToken = default)
+    public async Task<Contact> CreateContactAsync(Contact dto, CancellationToken cancellationToken = default)
     {
         ThrowBeforeHttpCallIfNecessary();
 

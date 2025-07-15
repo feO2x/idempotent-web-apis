@@ -3,9 +3,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using Shared.Contacts;
 
-namespace ServiceA.Contacts.CreateContact;
+namespace ServiceB.Contacts.CreateContact;
 
 public interface ICreateContactClient : IAsyncDisposable
 {
-    Task<Contact> CreateContactAsync(Contact dto, CancellationToken cancellationToken = default);
+    Task<UpsertResult> UpsertContactAsync(Contact contact, CancellationToken cancellationToken = default);
 }

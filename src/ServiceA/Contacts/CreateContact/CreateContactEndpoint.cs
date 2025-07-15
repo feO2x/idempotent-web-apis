@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel;
 using System.Threading;
 using System.Threading.Tasks;
@@ -53,9 +54,17 @@ public static class CreateContactEndpoint
             numberOfErrorsAfterServiceCall
         );
 
+        var dtoToTransmit = new Contact
+        {
+            Id = Guid.CreateVersion7(),
+            Name = dto.Name,
+            Email = dto.Email,
+            PhoneNumber = dto.PhoneNumber
+        };
+
         var contact = await resiliencePipeline.ExecuteAsync(
             async (state, ct) => await state.Client.CreateContactAsync(state.Dto, ct),
-            (Client: client, Dto: dto),
+            (Client: client, Dto: dtoToTransmit),
             cancellationToken
         );
         
