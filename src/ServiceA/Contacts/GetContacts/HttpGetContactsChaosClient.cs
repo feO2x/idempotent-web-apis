@@ -10,9 +10,9 @@ using Shared.Model;
 
 namespace ServiceA.Contacts.GetContacts;
 
-public sealed class HttpGetContactsClient : HttpChaosClient, IGetContactsClient
+public sealed class HttpGetContactsChaosClient : HttpChaosClient, IGetContactsClient
 {
-    public HttpGetContactsClient(
+    public HttpGetContactsChaosClient(
         HttpClient client,
         int numberOfErrorsBeforeServiceCall,
         int numberOfErrorsAfterServiceCall
@@ -50,5 +50,5 @@ public sealed class HttpGetContactsClient : HttpChaosClient, IGetContactsClient
         int numberOfErrorsBeforeServiceCall,
         int numberOfErrorsAfterServiceCall
     ) =>
-        new HttpGetContactsClient(client, numberOfErrorsBeforeServiceCall, numberOfErrorsAfterServiceCall);
+        new HttpGetContactsChaosClient(client, numberOfErrorsBeforeServiceCall, numberOfErrorsAfterServiceCall);
 }

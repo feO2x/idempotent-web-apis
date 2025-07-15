@@ -1,10 +1,10 @@
 using Microsoft.Extensions.DependencyInjection;
-using Shared.Contacts;
+using ServiceA.HttpAccess;
 
-namespace ServiceB.Contacts.GetContact;
+namespace ServiceA.Contacts.GetContact;
 
 public static class GetContactModule
 {
     public static IServiceCollection AddGetContactModule(this IServiceCollection services) =>
-        services.AddScoped<IGetContactClient, EfGetContactClient>();
+        services.AddChaosClientFactory(HttpGetContactChaosClient.Create);
 }

@@ -8,5 +8,5 @@ public static class GetContactsModule
     public static IServiceCollection AddGetContactsModule(this IServiceCollection services) =>
         services
            .AddSingleton<GetContactsValidator>()
-           .AddChaosClientFactory(HttpGetContactsClient.Create);
+           .AddChaosClientFactory(HttpGetContactsChaosClient.Create);
 }

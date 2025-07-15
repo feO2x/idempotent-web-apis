@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Light.DatabaseAccess.EntityFrameworkCore;
 using ServiceB.Contacts.Shared;
 using ServiceB.DatabaseAccess;
+using Shared.Contacts;
 using Shared.Model;
 
 namespace ServiceB.Contacts.GetContact;
