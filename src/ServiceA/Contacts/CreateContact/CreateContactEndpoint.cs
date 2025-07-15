@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
@@ -21,23 +22,35 @@ public static class CreateContactEndpoint
            .Produces(StatusCodes.Status500InternalServerError);
 
     public static async Task<IResult> CreateContact(
-        CreateContactDtoWithErrors dto,
         CreateContactDtoWithErrorsValidator validator,
         IChaosClientFactory<ICreateContactClient> clientFactory,
+        CreateContactDto dto,
+        [Description(
+            "Number of errors that should occur before the HTTP call to Service B - must be greater than or equal to 0"
+        )]
+        int numberOfErrorsBeforeServiceCall = 0,
+        [Description(
+            "Number of errors that should occur after the HTTP call to Service B - must be greater than or equal to 0"
+        )]
+        int numberOfErrorsAfterServiceCall = 0,
         CancellationToken cancellationToken = default
     )
     {
-        if (validator.CheckForErrors(dto, out IResult? result))
+        var errorsDto = new ErrorsDto<CreateContactDto>(
+            dto,
+            numberOfErrorsBeforeServiceCall,
+            numberOfErrorsAfterServiceCall
+        );
+        if (validator.CheckForErrors(errorsDto, out IResult? result))
         {
             return result;
         }
 
-        var createContactDto = dto.ToCreateContactDto();
         await using var client = clientFactory.CreateClient(
-            dto.NumberOfErrorsBeforeServiceCall,
-            dto.NumberOfErrorsAfterServiceCall
+            numberOfErrorsBeforeServiceCall,
+            numberOfErrorsAfterServiceCall
         );
-        var contact = await client.CreateContactAsync(createContactDto, cancellationToken);
+        var contact = await client.CreateContactAsync(dto, cancellationToken);
         return TypedResults.Created($"/api/contacts/{contact.Id}", contact);
     }
 }
