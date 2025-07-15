@@ -4,6 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using Polly;
 using ServiceA.Contacts.Shared;
 using ServiceA.HttpAccess;
 using Shared.CommonDtoValidation;
@@ -27,6 +28,7 @@ public static class GetContactEndpoint
     public static async Task<IResult> GetContact(
         IChaosClientFactory<IGetContactClient> clientFactory,
         ContactIdWithErrorsValidator validator,
+        ResiliencePipeline resiliencePipeline,
         [Description("ID of the contact to return - must not be empty")] Guid id,
         [Description(
             "Number of errors that should occur before the HTTP call to Service B - must be greater than or equal to 0"
@@ -49,7 +51,11 @@ public static class GetContactEndpoint
             numberOfErrorsBeforeServiceCall,
             numberOfErrorsAfterServiceCall
         );
-        var contact = await client.GetContactAsync(id, cancellationToken);
+        var contact = await resiliencePipeline.ExecuteAsync(
+            async (state, ct) => await state.Client.GetContactAsync(state.Id, ct),
+            (Client: client, Id: id),
+            cancellationToken
+        );
         return contact is null ? TypedResults.NotFound() : TypedResults.Ok(contact);
     }
 }

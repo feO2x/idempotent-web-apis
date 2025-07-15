@@ -19,6 +19,7 @@ public static class DependencyInjection
         services.AddOpenTelemetryMetricsAndTracing(builder.Configuration, "service-a");
         services.AddCommonDtoValidation();
         services.AddHttpAccess();
+        services.AddResilience();
         services.AddContactsModule();
         return builder;
     }
