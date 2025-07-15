@@ -6,5 +6,5 @@ namespace Shared.Contacts;
 
 public interface IGetContactClient : IAsyncDisposable
 {
-    Task<Contact?> GetContactAsync(int id, CancellationToken cancellationToken = default);
+    Task<Contact?> GetContactAsync(Guid id, CancellationToken cancellationToken = default);
 }

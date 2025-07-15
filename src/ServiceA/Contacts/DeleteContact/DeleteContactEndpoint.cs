@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel;
 using System.Threading;
 using System.Threading.Tasks;
@@ -12,7 +13,7 @@ namespace ServiceA.Contacts.DeleteContact;
 public static class DeleteContactEndpoint
 {
     public static void MapDeleteContactEndpoint(this WebApplication app) =>
-        app.MapDelete("/api/contacts/{id:int}", DeleteContact)
+        app.MapDelete("/api/contacts/{id:guid}", DeleteContact)
            .WithName("DeleteContact")
            .WithTags("Contacts")
            .WithSummary("DeleteContact")
@@ -25,7 +26,7 @@ public static class DeleteContactEndpoint
     public static async Task<IResult> DeleteContact(
         ContactIdWithErrorsValidator validator,
         IChaosClientFactory<IDeleteContactClient> clientFactory,
-        [Description("ID of the contact to delete - must be greater than 0")] int id,
+        [Description("ID of the contact to delete - must not be empty")] Guid id,
         [Description(
             "Number of errors that should occur before the HTTP call to Service B - must be greater than or equal to 0"
         )]
@@ -37,7 +38,7 @@ public static class DeleteContactEndpoint
         CancellationToken cancellationToken = default
     )
     {
-        var dto = new ErrorsDto<int>(id, numberOfErrorsBeforeServiceCall, numberOfErrorsAfterServiceCall);
+        var dto = new ErrorsDto<Guid>(id, numberOfErrorsBeforeServiceCall, numberOfErrorsAfterServiceCall);
         if (validator.CheckForErrors(dto, out IResult? result))
         {
             return result;

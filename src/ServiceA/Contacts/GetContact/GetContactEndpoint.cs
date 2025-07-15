@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel;
 using System.Threading;
 using System.Threading.Tasks;
@@ -13,7 +14,7 @@ namespace ServiceA.Contacts.GetContact;
 public static class GetContactEndpoint
 {
     public static void MapGetContactEndpoint(this WebApplication app) =>
-        app.MapGet("/api/contacts/{id}", GetContact)
+        app.MapGet("/api/contacts/{id:guid}", GetContact)
            .WithName("GetContact")
            .WithTags("Contacts")
            .WithSummary("GetContact")
@@ -26,7 +27,7 @@ public static class GetContactEndpoint
     public static async Task<IResult> GetContact(
         IChaosClientFactory<IGetContactClient> clientFactory,
         ContactIdWithErrorsValidator validator,
-        [Description("ID of the contact to return - must be greater than 0")] int id,
+        [Description("ID of the contact to return - must not be empty")] Guid id,
         [Description(
             "Number of errors that should occur before the HTTP call to Service B - must be greater than or equal to 0"
         )]
@@ -38,7 +39,7 @@ public static class GetContactEndpoint
         CancellationToken cancellationToken = default
     )
     {
-        var dto = new ErrorsDto<int>(id, numberOfErrorsBeforeServiceCall, numberOfErrorsAfterServiceCall);
+        var dto = new ErrorsDto<Guid>(id, numberOfErrorsBeforeServiceCall, numberOfErrorsAfterServiceCall);
         if (validator.CheckForErrors(dto, out IResult? result))
         {
             return result;

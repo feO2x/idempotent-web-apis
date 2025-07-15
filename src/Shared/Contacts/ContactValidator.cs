@@ -9,7 +9,7 @@ public sealed class ContactValidator : Validator<Contact>
 
     protected override Contact PerformValidation(ValidationContext context, Contact dto)
     {
-        context.Check(dto.Id).IsGreaterThan(0);
+        context.Check(dto.Id).IsNotEmpty();
         context.ValidateContactProperties(dto);
         return dto;
     }

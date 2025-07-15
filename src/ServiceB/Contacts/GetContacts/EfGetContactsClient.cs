@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -15,7 +16,7 @@ public sealed class EfGetContactsClient : EfClient<ServiceBDbContext>, IGetConta
 
     public Task<List<ContactListDto>> GetContactsAsync(
         int pageSize,
-        int? lastKnownId = null,
+        Guid? lastKnownId = null,
         CancellationToken cancellationToken = default
     )
     {

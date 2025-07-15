@@ -1,3 +1,4 @@
+using System;
 using System.Net;
 using System.Net.Http;
 using System.Threading;
@@ -15,7 +16,7 @@ public sealed class HttpDeleteContactChaosClient : HttpChaosClient, IDeleteConta
         int numberOfErrorsAfterServiceCall
     ) : base(client, numberOfErrorsBeforeServiceCall, numberOfErrorsAfterServiceCall) { }
 
-    public async Task<IResult> DeleteContactAsync(int id, CancellationToken cancellationToken = default)
+    public async Task<IResult> DeleteContactAsync(Guid id, CancellationToken cancellationToken = default)
     {
         ThrowBeforeHttpCallIfNecessary();
 

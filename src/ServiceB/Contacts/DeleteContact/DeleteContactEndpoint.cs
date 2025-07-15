@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel;
 using System.Threading;
 using System.Threading.Tasks;
@@ -13,7 +14,7 @@ public static class DeleteContactEndpoint
 {
     public static void MapDeleteContactEndpoint(this WebApplication app)
     {
-        app.MapDelete("/api/contacts/{id:int}", DeleteContact)
+        app.MapDelete("/api/contacts/{id:guid}", DeleteContact)
            .WithName("DeleteContact")
            .WithTags("Contacts")
            .WithSummary("DeleteContact")
@@ -27,7 +28,7 @@ public static class DeleteContactEndpoint
     public static async Task<IResult> DeleteContact(
         ValidationContext validationContext,
         IDeleteContactSession dbSession,
-        [Description("ID of the contact to delete - must be greater than 0")] int id,
+        [Description("ID of the contact to delete - must not be empty")] Guid id,
         ILogger logger,
         CancellationToken cancellationToken = default
     )

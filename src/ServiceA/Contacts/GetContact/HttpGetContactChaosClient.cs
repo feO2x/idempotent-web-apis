@@ -1,3 +1,4 @@
+using System;
 using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading;
@@ -16,7 +17,7 @@ public sealed class HttpGetContactChaosClient : HttpChaosClient, IGetContactClie
     ) : base(client, numberOfErrorsBeforeServiceCall, numberOfErrorsAfterServiceCall) { }
 
 
-    public Task<Contact?> GetContactAsync(int id, CancellationToken cancellationToken = default)
+    public Task<Contact?> GetContactAsync(Guid id, CancellationToken cancellationToken = default)
     {
         ThrowBeforeHttpCallIfNecessary();
 

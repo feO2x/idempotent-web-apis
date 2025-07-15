@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Net.Http.Json;
@@ -19,7 +20,7 @@ public sealed class HttpGetContactsChaosClient : HttpChaosClient, IGetContactsCl
 
     public async Task<List<ContactListDto>> GetContactsAsync(
         int pageSize,
-        int? lastKnownId = null,
+        Guid? lastKnownId = null,
         CancellationToken cancellationToken = default
     )
     {

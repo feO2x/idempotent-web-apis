@@ -1,3 +1,4 @@
+using System;
 using System.ComponentModel;
 using System.Threading;
 using System.Threading.Tasks;
@@ -12,7 +13,7 @@ namespace ServiceB.Contacts.GetContact;
 public static class GetContactEndpoint
 {
     public static void MapGetContactEndpoint(this WebApplication app) =>
-        app.MapGet("/api/contacts/{id:int}", GetContact)
+        app.MapGet("/api/contacts/{id:guid}", GetContact)
            .WithName("GetContact")
            .WithTags("Contacts")
            .WithSummary("GetContact")
@@ -25,7 +26,7 @@ public static class GetContactEndpoint
     public static async Task<IResult> GetContact(
         ValidationContext validationContext,
         IGetContactClient dbClient,
-        [Description("ID of the contact to return - must be greater than 0")] int id,
+        [Description("ID of the contact to return - must not be empty")] Guid id,
         CancellationToken cancellationToken = default
     )
     {

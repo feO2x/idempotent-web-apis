@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Threading;
@@ -29,7 +30,7 @@ public static class GetContactsEndpoint
         [Description("Number of contacts to return (optional) - between 1 and 100")]
         int pageSize = 20,
         [Description("ID of the last known contact to the caller (optional) - page will start after this ID")]
-        int? lastKnownId = null,
+        Guid? lastKnownId = null,
         CancellationToken cancellationToken = default
     )
     {

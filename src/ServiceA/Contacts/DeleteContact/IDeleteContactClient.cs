@@ -7,5 +7,5 @@ namespace ServiceA.Contacts.DeleteContact;
 
 public interface IDeleteContactClient : IAsyncDisposable
 {
-    Task<IResult> DeleteContactAsync(int id, CancellationToken cancellationToken = default);
+    Task<IResult> DeleteContactAsync(Guid id, CancellationToken cancellationToken = default);
 }

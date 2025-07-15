@@ -1,3 +1,4 @@
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
@@ -37,6 +38,7 @@ public static class CreateContactEndpoint
 
         var contact = new Contact
         {
+            Id = Guid.CreateVersion7(),
             Name = dto.Name,
             Email = dto.Email,
             PhoneNumber = dto.PhoneNumber

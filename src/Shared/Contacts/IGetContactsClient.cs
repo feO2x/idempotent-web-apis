@@ -9,7 +9,7 @@ public interface IGetContactsClient : IAsyncDisposable
 {
     Task<List<ContactListDto>> GetContactsAsync(
         int pageSize,
-        int? lastKnownId = null,
+        Guid? lastKnownId = null,
         CancellationToken cancellationToken = default
     );
 }

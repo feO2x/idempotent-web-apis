@@ -1,3 +1,4 @@
+using System;
 using System.Threading;
 using System.Threading.Tasks;
 using Light.DatabaseAccess.EntityFrameworkCore;
@@ -11,6 +12,6 @@ public sealed class EfUpdateContactSession : EfSession<ServiceBDbContext>, IUpda
 {
     public EfUpdateContactSession(ServiceBDbContext dbContext) : base(dbContext) { }
 
-    public Task<Contact?> GetContactAsync(int id, CancellationToken cancellationToken = default) =>
+    public Task<Contact?> GetContactAsync(Guid id, CancellationToken cancellationToken = default) =>
         DbContext.GetContactAsync(id, cancellationToken);
 }
