@@ -21,7 +21,6 @@ public static class DeleteContactEndpoint
            .WithDescription("Deletes a contact")
            .Produces(StatusCodes.Status204NoContent)
            .ProducedBadRequestProblemDetails()
-           .Produces(StatusCodes.Status404NotFound)
            .Produces(StatusCodes.Status500InternalServerError);
     }
 
@@ -41,7 +40,7 @@ public static class DeleteContactEndpoint
         var contact = await dbSession.GetContactAsync(id, cancellationToken);
         if (contact is null)
         {
-            return TypedResults.NotFound();
+            return TypedResults.NoContent();
         }
 
         dbSession.RemoveContact(contact);
